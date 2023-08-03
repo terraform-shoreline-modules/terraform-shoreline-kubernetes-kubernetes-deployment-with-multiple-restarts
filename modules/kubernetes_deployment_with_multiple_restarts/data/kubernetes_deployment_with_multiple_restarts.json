@@ -1,0 +1,194 @@
+{
+  "name": "kubernetes_deployment_with_multiple_restarts",
+  "description": "The incident type of \"Kubernetes deployment with multiple restarts\" indicates that a Kubernetes deployment has experienced multiple restarts within a certain timeframe, which is usually indicative of a problem. Kubernetes is a popular container orchestration platform that automates the deployment, scaling, and management of containerized applications. When a deployment experiences multiple restarts, it can impact the availability and performance of the application, and can be a sign of underlying issues that need to be addressed. This incident type is typically monitored and managed by DevOps teams responsible for ensuring the health and reliability of Kubernetes-based applications.",
+  "params": [
+    {
+      "name": "DEPLOYMENT_NAME",
+      "value": ""
+    },
+    {
+      "name": "POD_NAME",
+      "value": ""
+    },
+    {
+      "name": "CONTAINER_NAME",
+      "value": ""
+    },
+    {
+      "name": "NAMESPACE",
+      "value": ""
+    },
+    {
+      "name": "APP_LABEL",
+      "value": ""
+    },
+    {
+      "name": "K8S_CLUSTER_NAME",
+      "value": ""
+    }
+  ],
+  "cells": [
+    {
+      "name": "cell_1",
+      "type": "MARKDOWN",
+      "enabled": true,
+      "content": "## Kubernetes deployment with multiple restarts\nThe incident type of \"Kubernetes deployment with multiple restarts\" indicates that a Kubernetes deployment has experienced multiple restarts within a certain timeframe, which is usually indicative of a problem. Kubernetes is a popular container orchestration platform that automates the deployment, scaling, and management of containerized applications. When a deployment experiences multiple restarts, it can impact the availability and performance of the application, and can be a sign of underlying issues that need to be addressed. This incident type is typically monitored and managed by DevOps teams responsible for ensuring the health and reliability of Kubernetes-based applications."
+    },
+    {
+      "name": "cell_2",
+      "type": "MARKDOWN",
+      "enabled": true,
+      "content": "## Check the status of the Kubernetes Deployment"
+    },
+    {
+      "name": "cell_3",
+      "type": "OP_LANG",
+      "enabled": true,
+      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | limit=1 | random=1 | `kubectl get deploy ${DEPLOYMENT_NAME} -n ${NAMESPACE}`"
+    },
+    {
+      "name": "cell_4",
+      "type": "MARKDOWN",
+      "enabled": true,
+      "content": "## Check the logs of a Kubernetes Pod"
+    },
+    {
+      "name": "cell_5",
+      "type": "OP_LANG",
+      "enabled": true,
+      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | limit=1 | random=1 | `kubectl logs ${POD_NAME} -c ${CONTAINER_NAME} -n ${NAMESPACE}`"
+    },
+    {
+      "name": "cell_6",
+      "type": "MARKDOWN",
+      "enabled": true,
+      "content": "## Get detailed information about a Kubernetes Pod"
+    },
+    {
+      "name": "cell_7",
+      "type": "OP_LANG",
+      "enabled": true,
+      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | limit=1 | random=1 | `kubectl describe pod ${POD_NAME} -n ${NAMESPACE}`"
+    },
+    {
+      "name": "cell_8",
+      "type": "MARKDOWN",
+      "enabled": true,
+      "content": "## Check the status of a Kubernetes Pod"
+    },
+    {
+      "name": "cell_9",
+      "type": "OP_LANG",
+      "enabled": true,
+      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | limit=1 | random=1 | `kubectl get pod ${POD_NAME} -n ${NAMESPACE}`"
+    },
+    {
+      "name": "cell_10",
+      "type": "MARKDOWN",
+      "enabled": true,
+      "content": "## Check the events related to a Kubernetes Pod"
+    },
+    {
+      "name": "cell_11",
+      "type": "OP_LANG",
+      "enabled": true,
+      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | limit=1 | random=1 | `kubectl get events --field-selector involvedObject.name=${POD_NAME} -n ${NAMESPACE}`"
+    },
+    {
+      "name": "cell_12",
+      "type": "MARKDOWN",
+      "enabled": true,
+      "content": "## Check the resource utilization of a Kubernetes Pod"
+    },
+    {
+      "name": "cell_13",
+      "type": "OP_LANG",
+      "enabled": true,
+      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | limit=1 | random=1 | `kubectl top pod ${POD_NAME} -n ${NAMESPACE}`"
+    },
+    {
+      "name": "cell_14",
+      "type": "MARKDOWN",
+      "enabled": true,
+      "content": "## Check the status of all Kubernetes Pods in a Deployment"
+    },
+    {
+      "name": "cell_15",
+      "type": "OP_LANG",
+      "enabled": true,
+      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | limit=1 | random=1 | `kubectl get pods -l app=${APP_LABEL} -n ${NAMESPACE}`"
+    },
+    {
+      "name": "cell_16",
+      "type": "MARKDOWN",
+      "enabled": true,
+      "content": "## Check the resource utilization of all Kubernetes Pods in a Deployment"
+    },
+    {
+      "name": "cell_17",
+      "type": "OP_LANG",
+      "enabled": true,
+      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | limit=1 | random=1 | `kubectl top pods -l app=${APP_LABEL} -n ${NAMESPACE}`"
+    },
+    {
+      "name": "cell_18",
+      "type": "MARKDOWN",
+      "enabled": true,
+      "content": "## Check the logs of all Kubernetes Pods in a Deployment"
+    },
+    {
+      "name": "cell_19",
+      "type": "OP_LANG",
+      "enabled": true,
+      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | limit=1 | random=1 | `kubectl logs -l app=${APP_LABEL} -c ${CONTAINER_NAME} -n ${NAMESPACE}`"
+    },
+    {
+      "name": "cell_20",
+      "type": "MARKDOWN",
+      "enabled": true,
+      "content": "## Get detailed information about all Kubernetes Pods in a Deployment"
+    },
+    {
+      "name": "cell_21",
+      "type": "OP_LANG",
+      "enabled": true,
+      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | limit=1 | random=1 | `kubectl describe pods -l app=${APP_LABEL} -n ${NAMESPACE}`"
+    },
+    {
+      "name": "cell_22",
+      "type": "MARKDOWN",
+      "enabled": true,
+      "content": "## Check the events related to all Kubernetes Pods in a Deployment"
+    },
+    {
+      "name": "cell_23",
+      "type": "OP_LANG",
+      "enabled": true,
+      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | limit=1 | random=1 | `kubectl get events --field-selector involvedObject.name=${POD_NAME} -n ${NAMESPACE}`"
+    },
+    {
+      "name": "cell_24",
+      "type": "MARKDOWN",
+      "enabled": true,
+      "content": "## Increase resource allocation: If the root cause is identified as insufficient resources, increase the allocation of CPU, memory, or other resources to the Kubernetes deployment."
+    },
+    {
+      "name": "cell_25",
+      "type": "OP_LANG",
+      "enabled": true,
+      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | random=1 | limit=1 | invoke_update_deployment_limits($DEPLOYMENT_NAME, $NAMESPACE)"
+    },
+    {
+      "name": "cell_26",
+      "type": "MARKDOWN",
+      "enabled": true,
+      "content": "## Scale up the deployment: If the Kubernetes deployment is experiencing high traffic or load, consider scaling up the deployment to handle the increased demand."
+    },
+    {
+      "name": "cell_27",
+      "type": "OP_LANG",
+      "enabled": true,
+      "content": "pod | k8s_cluster_name=$K8S_CLUSTER_NAME | app='shoreline' | random=1 | limit=1 | invoke_scale_deployment($DEPLOYMENT_NAME, $NAMESPACE)"
+    }
+  ]
+}
